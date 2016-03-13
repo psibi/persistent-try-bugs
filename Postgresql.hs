@@ -1,5 +1,3 @@
-module Postgresql where
-
 {-# LANGUAGE EmptyDataDecls             #-}
 {-# LANGUAGE FlexibleContexts           #-}
 {-# LANGUAGE GADTs                      #-}
@@ -9,6 +7,8 @@ module Postgresql where
 {-# LANGUAGE QuasiQuotes                #-}
 {-# LANGUAGE TemplateHaskell            #-}
 {-# LANGUAGE TypeFamilies               #-}
+
+module Postgresql where
 
 import           Control.Monad.IO.Class  (liftIO)
 import           Control.Monad.Logger    (runStderrLoggingT)
@@ -22,18 +22,14 @@ import           Database.Persist.TH
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
 Person
     name String
-    age Int Maybe
+    age Int 
+    ude Int
     deriving Show
 |]
 
-conn = "host=localhost dbname=new_db user=postgres password=postgres port=5432"
-
-deletePerson :: MonadIO m => ReaderT SqlBackend m ()
-deletePerson = rawSql "select from person where id=4" []
+conn = "host=localhost dbname=perm2 user=jack password=jack port=5432"
 
 postgreSQLTest :: IO ()
 postgreSQLTest = runStderrLoggingT $ withPostgresqlPool conn 10 $ liftSqlPersistMPool $ do
          runMigration migrateAll
-         print test
-         getPerson
-
+         return ()
