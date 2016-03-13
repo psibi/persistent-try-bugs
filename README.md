@@ -12,3 +12,16 @@ Some commands:
 * .schema <table_name>
 * .quit
 
+## Postgresql refresher (psql)
+
+sudo su
+su postgres
+psql -U postgres
+
+Some commands:
+
+* \l   (List of databases)
+* \d   (List of tables)
+* \c db_name (Connect to database named db_name)
+
+
